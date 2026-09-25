@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12 text-center">
+      <p class="h1">Tarjetas del Cliente</p>
+    </div>
+  </div>
+
+  <div class="row dialog">
+    <div
+      *ngFor="let item of this.data.tdcs; let i = index"
+      class="col-12 mt-3 mx-auto"
+    >
+      <div class="card mt-1 border p-2 border-2">
+        <div class="row">
+          <div class="col-9 col-md-9">
+            <p class="h2 line-h-selector-credit-card text-dark">
+              {{ item.cardBrand }}
+            </p>
+            <p class="h2 line-h-selector-credit-card text-dark">
+              {{ item.cardType }}
+            </p>
+          </div>
+          <div class="col-3 col-md-3 text-center align-self-center">
+            <mat-checkbox
+              id="{{ item.id }}"
+              [mat-dialog-close]="item"
+              [checked]="selected === i"
+              (change)="selected = i"
+              color="primary"
+              class="cursor-pointer"
+            ></mat-checkbox>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <p class="h2 line-h-selector-credit-card text-dark">
+              {{ item.cardNumber }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 col-md-6 mx-auto">
+      <button
+        *ngIf="itemSelect !== null"
+        (click)="SaveSelectedCreditCard()"
+        type="button"
+        mat-stroked-button
+        color="primary"
+        class="w-100 p-2 border-button-footer mt-3"
+      >
+        <span class="h1">Aceptar</span>
+      </button>
+    </div>
+  </div>
+</div>

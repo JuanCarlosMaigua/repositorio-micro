@@ -1,0 +1,64 @@
+<div class="container max-width-container-main" *ngIf="Transaction$ | async as _transaction">
+  <div class="row justify-content-center">
+    <div class="col-10 col-md-5">
+      <img src="../../../../../assets/images/icons/barraBotones3.svg" alt="timeline1" />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col col-md-12 mb-3 text-center">
+      <h1>{{ 'QR.TITULO' | translate }}</h1>
+      <p>Presenta este código al cajero
+        para realizar tu depósito</p>
+    </div>
+    <div class="col col-md-6 text-center mb-3">
+      <div class="qr">
+        <div style="width:{{sizeQR}}px;text-align: right;display: inline-block;">
+          <img src="./assets/images/icons/bb-bolivariano-logo.svg" alt="">
+        </div>
+        <ngx-kjua [text]="_transaction.ctCode" [renderAsync]="false" [render]="'svg'" [crisp]="false" [minVersion]="1"
+          [ecLevel]="'L'" [size]="sizeQR" [ratio]="undefined" [fill]="'#92c640'" [back]="'#fff'" [rounded]="50"
+          [quiet]="1" [mode]="'plain'" [mSize]="0" [mPosX]="0" [mPosY]="0" [label]="''" [fontname]="'sans-serif'"
+          [fontcolor]="'#ff9818'" [image]="undefined" [cssClass]="'content-qr'"></ngx-kjua>
+        <div class="code" style="width:{{sizeQR}}px;display: inline-block;">
+          <p>{{ _transaction.ctCode }}</p>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!deviceService.isDesktop()" class="col col-md-6 text-center align-middle qr-description">
+      <div class="text-center">
+        <p>{{ getTransactionType(_transaction.typeNemonic) | titlecase }} a {{ getName(_transaction) | titlecase }} - {{
+          getDescripcion(_transaction) | titlecase }}</p>
+        <p><b>Monto total: {{ getTotal(_transaction) | currency}}</b></p>
+        <p>vence en {{ getDateofExpiry(_transaction.createDate) }}</p>
+      </div>
+    </div>
+    <div *ngIf="deviceService.isDesktop()" class="col col-md-6 text-center align-middle qr-description-1">
+      <div class="text-center content-data">
+        <p>{{ getTransactionType(_transaction.typeNemonic) | titlecase }} a {{ getName(_transaction) | titlecase }} - {{
+          getDescripcion(_transaction) | titlecase }}</p>
+        <p><b>Monto total: {{ getTotal(_transaction) | currency}}</b></p>
+        <p>vence en {{ getDateofExpiry(_transaction.createDate) }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="container mt-3">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-6">
+        <button (click)="ToAddTransaction()" type="button" mat-stroked-button color="primary"
+          class="w-100 p-2 border-button-footer mt-3">
+          <span class="h2">Nueva Papeleta</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="container mt-3">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-6">
+        <button routerLink="/" type="button" mat-stroked-button color="primary"
+          class="w-100 p-2 border-button-footer mt-3">
+          <span class="h2">Continuar</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,153 @@
+$candy-app-primary: mat-palette($mat-bb-caja-verde-primary);
+$candy-app-accent: mat-palette($mat-bb-caja-verde-secondary);
+$candy-app-warn: mat-palette($mat-bb-caja-verde-warning);
+
+$candy-app-theme: mat-light-theme(
+    $candy-app-primary,
+    $candy-app-accent,
+    $candy-app-warn
+);
+
+@include angular-material-theme($candy-app-theme);
+
+$theme-colors: (
+  "primary": $bb-caja-verde-var-bootstrap-primary,
+  "secondary": $bb-caja-verde-var-bootstrap-secondary,
+  "success": $bb-caja-verde-var-bootstrap-success,
+  "danger": $bb-caja-verde-var-bootstrap-danger,
+  "warning": $bb-caja-verde-var-bootstrap-warning,
+  "info": $bb-caja-verde-var-bootstrap-info,
+);
+
+@import "node_modules/bootstrap/scss/bootstrap.scss";
+
+@font-face {
+  src: url("../font/Novecento-LightWide.otf");
+  font-family: "NovacentoLightWide";
+  font-style: normal;
+}
+
+h1 {
+  font-size: 7.2vw;
+  color: $bb-caja-verde-var-bootstrap-primary;
+  font-weight: normal;
+}
+
+p {
+  color: #7c7a7a;
+  font-size: 3vh;
+  font-weight: 500;
+  line-height: 5vw;
+  margin-bottom: 0px !important;
+}
+
+.mt-n1 {
+  margin-top: -0.25rem !important;
+}
+
+.max-width-container-main {
+  max-width: 1000px !important;
+}
+
+.max-width-container-voucher {
+  max-width: 500px !important;
+}
+
+.max-width-card-selector {
+  max-width: 300px !important;
+}
+
+.h-card-selector {
+  height: 95px;
+}
+
+.line-h-selector{
+  line-height: 28px !important;
+}
+
+.w-90 {
+  width: 90% !important;
+}
+
+.mat-tab-label {
+  opacity: 1 !important;
+}
+
+.border-right-0 {
+  border-right: none !important;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+.border-button-footer {
+  height: 10vh;
+  border-color: #00657f !important;
+  border-radius: 15px !important;
+}
+
+.subtitle-p {
+  line-height: 20px !important;
+}
+.max-height-50 {
+  max-height: 50vh;
+}
+
+.max-height-40px {
+  max-height: 50px;
+}
+.min-height-30px {
+  min-height: 35px;
+}
+.card-icon {
+  max-width: 80px !important;
+  max-height: 80px !important;
+}
+.card-icon-close {
+  max-width: 50px !important;
+  max-height: 80px !important;
+}
+
+.border-selector-card-options {
+  border-top: 1px solid grey !important;
+  border-right: 1px solid grey !important;
+  border-bottom: 1px solid grey !important;
+  border-left: 5px solid $bb-caja-verde-var-bootstrap-primary !important;
+}
+
+.line-space-voucher {
+  line-height: 18px !important;
+}
+.line-space-summary-card {
+  line-height: 10px !important;
+}
+.line-space-credit-card {
+  line-height: 12px !important;
+}
+.border-info-card {
+  border-color: $bb-caja-verde-var-bootstrap-secondary !important;
+}
+.height-card{
+  height: 30vh!important;
+}
+.color-primary {
+  color: $bb-caja-verde-var-bootstrap-primary !important;
+}
+.color-secondary {
+  color: $bb-caja-verde-var-bootstrap-secondary !important;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  overflow-y: scroll;
+  background: #d7edf1;
+  box-shadow: inset 0 0 4px #e0e0e0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $bb-caja-verde-var-bootstrap-primary;
+  border-radius: 10px;
+}
+
+#download {
+  display: none;
+}

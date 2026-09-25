@@ -1,0 +1,230 @@
+<swiper [navigation]="true" (indexChange)="onIndexChange($event)" [ngClass]="{'swiper-container-modible': !isDesktop }"class="onboarding" *ngIf="config$ | async as _config" #usefulSwiper>
+  <ng-template swiperSlide>
+    <div *ngIf="!isDesktop" class="container-fluid px-0">
+      <div class="row">
+        <div class="col-12">
+          <div class="boarding-img-header">
+            <img src="./assets/images/boarding/BannerConfotos1.jpg">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 d-flex justify-content-center">
+          <div class="boarding-logo">
+            <img class="logo" src="./assets/images/general/logo-bb-cv.svg">
+            <h1>Nueva Caja Verde</h1>
+            <ul class="green-tick mx-4">
+              <li class="querySubTitle">No se emiten ni se solicitan papeletas</li>
+              <li class="querySubTitle">Hasta {{ _config.canTransactions }} transacciones</li>
+              <li class="querySubTitle">Monto máximo de {{ _config.maxAmmount | currency}} en efectivo</li>
+              <li class="querySubTitle">Depósito en cheque no tiene monto máximo</li>
+            </ul>
+            <button (click)="swipeToNextSlideManually()" type="button" mat-stroked-button color="primary" class="p-2 w-75 border-button-footer mt-3">
+              <span class="h2">{{ "Continuar" }}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="isDesktop" class="container-fluid px-0">
+      <div class="row">
+        <div class="col-6">
+          <div class="boarding-img-header-d">
+            <img src="./assets/images/boarding/pantallas_cajaverde_1920x1080px_01c_003.svg">
+            <!-- <img src="./assets/images/boarding/pantallas_cajaverde_1920x1080px_01c_001.svg"> -->
+          </div>
+
+        </div>
+        <div class="col-6 justify-content-center boarding-logo-d">
+          <img class="logo" src="./assets/images/general/logo-bb-cv.svg">
+          <h1>Nueva Caja Verde</h1>
+          <div class="mx-5">
+            <ul class="green-tick mx-5">
+              <li class="querySubTitle">No se emiten ni se solicitan papeletas</li>
+              <li class="querySubTitle">Hasta {{ _config.canTransactions }} transacciones</li>
+              <li class="querySubTitle">Monto máximo de {{ _config.maxAmmount | currency }} en efectivo</li>
+              <li class="querySubTitle">Depósito en cheque no tiene monto máximo</li>
+            </ul>
+          </div>
+
+          <button (click)="swipeToNextSlideManually()" type="button" mat-stroked-button color="primary" class="p-2 w-50 border-button-footer mt-3">
+            <span class="h2">{{ "Continuar" }}</span>
+          </button>
+
+        </div>
+      </div>
+    </div>
+
+  </ng-template>
+  <ng-template swiperSlide>
+    <div *ngIf="!isDesktop" class="container-fluid px-0">
+      <div class="row">
+        <div class="col-12">
+          <div class="boarding-img-header">
+            <img src="./assets/images/boarding/BannerConfotos2.jpg">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 d-flex justify-content-center">
+          <div class="boarding-logo">
+            <img class="logo" src="./assets/images/general/logo-bb-cv.svg">
+            <h1>Paso 1</h1>
+            <h2 class="px-4">Genera tu papeleta digital</h2>
+            <ol class="point-indicators">
+              <span class="dot"></span>
+              <span class="dot active"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </ol>
+            <button (click)="swipeToNextSlideManually()" type="button" mat-stroked-button color="primary" class="mt-5 p-2 w-100 border-button-footer">
+              <span class="h2">{{ "Continuar" }}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="isDesktop" class="container-fluid px-0">
+      <div class="row">
+        <div class="col-6">
+          <div class="boarding-img-header-d">
+            <img src="./assets/images/boarding/pantallas_cajaverde_1920x1080px_01c_003.svg">
+            <!--<img src="./assets/images/boarding/pantallas_cajaverde_1920x1080px_01c_002.svg">-->
+          </div>
+
+        </div>
+        <div class="col-6 justify-content-center boarding-logo-d">
+          <img class="logo" src="./assets/images/general/logo-bb-cv.svg">
+          <h1>Nueva Caja Verde</h1>
+          <h1>Paso 1</h1>
+          <h2 class="px-4">Genera tu papeleta digital</h2>
+          <ol class="point-indicators">
+            <span class="dot"></span>
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </ol>
+
+          <button (click)="swipeToNextSlideManually()" type="button" mat-stroked-button color="primary" class="p-2 w-50 border-button-footer mt-3">
+            <span class="h2">{{ "Continuar" }}</span>
+          </button>
+
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template swiperSlide>
+    <div *ngIf="!isDesktop" class="row">
+      <div class="col-12">
+        <div class="boarding-img-header">
+          <img src="./assets/images/boarding/BannerConfotos3.jpg">
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!isDesktop" class="row">
+      <div class="col-12 d-flex justify-content-center">
+        <div class="boarding-logo">
+          <img class="logo" src="./assets/images/general/logo-bb-cv.svg">
+          <h1>Paso 2</h1>
+          <h2 class="px-4">Muestra al cajero el QR<br> que verás en pantalla</h2>
+          <ol class="point-indicators">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot active"></span>
+            <span class="dot"></span>
+          </ol>
+          <button (click)="swipeToNextSlideManually()" type="button" mat-stroked-button color="primary" class="p-2 w-100 border-button-footer mt-5">
+            <span class="h2">{{ "Continuar" }}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="isDesktop" class="container-fluid px-0">
+      <div class="row">
+        <div class="col-6">
+          <div class="boarding-img-header-d">
+            <img src="./assets/images/boarding/pantallas_cajaverde_1920x1080px_01c_003.svg">
+          </div>
+
+        </div>
+        <div class="col-6 justify-content-center boarding-logo-d">
+          <img class="logo" src="./assets/images/general/logo-bb-cv.svg">
+          <h1>Nueva Caja Verde</h1>
+          <h1>Paso 2</h1>
+          <h2 class="px-4">Muestra al cajero <br> el código CT o QR que <br> verás en pantalla</h2>
+          <ol class="point-indicators">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot active"></span>
+            <span class="dot"></span>
+          </ol>
+
+          <button (click)="swipeToNextSlideManually()" type="button" mat-stroked-button color="primary" class="p-2 w-50 border-button-footer mt-3">
+            <span class="h2">{{ "Continuar" }}</span>
+          </button>
+
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template swiperSlide>
+    <div *ngIf="!isDesktop" class="row">
+      <div class="col-12">
+        <div class="boarding-img-header">
+          <img src="./assets/images/boarding/BannerConfotos4.jpg">
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!isDesktop" class="row">
+      <div class="col-12 d-flex justify-content-center">
+        <div class="boarding-logo">
+          <img class="logo" src="./assets/images/general/logo-bb-cv.svg">
+          <h1>Paso 3</h1>
+          <h2 class="px-4">Descarga tu comprobante</h2>
+          <ol class="point-indicators">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot active"></span>
+          </ol>
+          <button (click)="skip()" type="button" mat-stroked-button color="primary" class="p-2 w-100 border-button-footer mt-5">
+            <span class="h2">{{ "Continuar" }}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="isDesktop" class="container-fluid px-0">
+      <div class="row">
+        <div class="col-6">
+          <div class="boarding-img-header-d">
+            <img src="./assets/images/boarding/pantallas_cajaverde_1920x1080px_01c_003.svg">
+            <!--<img src="./assets/images/boarding/pantallas_cajaverde_1920x1080px_01c_004.svg">-->
+          </div>
+
+        </div>
+        <div class="col-6 justify-content-center boarding-logo-d">
+          <img class="logo" src="./assets/images/general/logo-bb-cv.svg">
+          <h1>Nueva Caja Verde</h1>
+          <h1>Paso 3</h1>
+          <h2 class="px-4">Revisa el comprobante<br> en tu correo electrónico</h2>
+          <ol class="point-indicators">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot active"></span>
+          </ol>
+
+          <button (click)="swipeToNextSlideManually()" type="button" mat-stroked-button color="primary" class="p-2 w-50 border-button-footer mt-3">
+            <span class="h2">{{ "Continuar" }}</span>
+          </button>
+
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+</swiper>
+<button mat-flat-button *ngIf="!showSplash" class='flotante bb-button min smallButton' [ngStyle]="{'top': yButton+'px'}"
+        (click)="skip()"> <span class="mx-2">Omitir</span> </button>
+
+<div class="oculto" *ngIf="isDesktop" (click)="swipeToNextSlideManually()"></div>

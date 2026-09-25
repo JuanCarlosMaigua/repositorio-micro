@@ -1,0 +1,28 @@
+@import "~@angular/material/theming";
+@include mat-core();
+@import "_variables";
+
+// General
+@import "./pages/base";
+
+// Pages
+// Splash Screen
+@import "./pages/splash-screen";
+
+// Signature
+@import "./pages/signature";
+
+// OnBoarding
+@import "./pages/onboarding";
+
+// Deposit
+@import "./pages/deposit";
+
+// QR
+@import "./pages/qr";
+
+// CrediCards
+@import "./pages/credi-card";
+
+// Poll
+@import "./pages/poll";

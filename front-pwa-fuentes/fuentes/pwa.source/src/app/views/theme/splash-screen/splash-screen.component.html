@@ -1,0 +1,9 @@
+<div class="app-splash-screen" *ngIf="showSplash && (errorRoute !== currentRoute)"
+     [@fadeInOut]>
+  <div class="app-splash-inner">
+    <div class="app-logo"></div>
+    <div class="app-bar-progress">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,272 @@
+<div class="container max-width-container-main">
+  <form autocomplete="off" [formGroup]="formGroupDeposit">
+  <div class="row justify-content-center">
+    <div class="col-10 col-md-5">
+      <img
+        src="../../../../../assets/images/icons/barraBotones2.svg"
+        alt="timeline1"
+      />
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col text-center">
+      <h1 class="h1 mb-2">{{ "DEPOSITO.TITULO" | translate }}</h1>
+      <p class="h3 subtitle-p text-dark">
+        {{ "DEPOSITO.DESCRIPCION" | translate }}
+      </p>
+    </div>
+  </div>
+  <div class="row mt-3 justify-content-center">
+    <div class="col">
+      <p class="h4 text-warning border-bottom border-3">
+        {{ "TARJETA.TITULO_DATA_TITULAR" | translate }}
+      </p>
+    </div>
+  </div>
+  <div class="row mt-2 justify-content-center">
+    <div class="col">
+      <mat-card *ngIf="accountInfoLoad" matRipple matRippleCentered="true" class=" card cursor-pointer border-account-card-options p-0 mat-elevation-z5 w-100 d-flex justify-content-center align-self-center h-card-account mx-auto">
+        <div class="row justify-content-center">
+          <div class="col-9 p-1">
+            <div class="m-3">
+              <h1 class="color-primary mb-0">
+                <b>{{ accountInfo.accountName }}</b>
+              </h1>
+              <p class="color-primary h2">
+                {{ accountInfo.accountNumber }} - {{ (accountInfo.accountTypeCode==0) ? 'Corriente' : 'Ahorro' }}
+              </p>
+            </div>
+
+          </div>
+
+          <div class="col-3 d-flex align-self-center flex-row-reverse p-0 mr-2 text-center">
+            <div class="m-3 text-center" (click)="otherAccount()">
+              <button type="button" class="btn btn-light btn-sm"><mat-icon color="primary">close</mat-icon></button>
+            </div>
+          </div>
+        </div>
+      </mat-card>
+
+      <mat-form-field *ngIf="!accountInfoLoad" appearance="legacy" class="example-full-width w-100">
+          <mat-label>Numero de Cuenta</mat-label>
+          <img matPrefix class="m-1" src="./assets/images/icons/cuenta.svg" width="28vh" height="28vh">
+          <input formControlName="recipientAccountNumber" (input)="getAccountInfo()" type="tel" matInput maxlength="10" (keypress)="numberOnly($event)"/>
+          <mat-hint>Ingrese el número de cuenta a depositar</mat-hint>
+          <mat-spinner *ngIf="formValues.recipientAccountNumber.value?.length==10 && !AcountNotFound" diameter="20" matSuffix></mat-spinner>
+          <a mat-button *ngIf="formValues.recipientAccountNumber.value?.length>0 && formValues.recipientAccountNumber.value?.length!=10 || AcountNotFound" matSuffix mat-icon-button aria-label="Borrar"
+             (click)="deleteAccountNumber()">
+            <mat-icon>close</mat-icon>
+          </a>
+        <mat-hint align="end">{{formValues.recipientAccountNumber.value?.length || 0}}/10</mat-hint>
+        <mat-error *ngIf="formValues.recipientAccountNumber.errors?.serverError">
+          {{formValues.recipientAccountNumber.errors?.serverError }}
+        </mat-error>
+        <mat-error *ngIf="isControlHasError('recipientAccountNumber', 'required')">
+          {{ 'ERROR_MESSAGE.REQUIRED' | translate }}
+        </mat-error>
+        <mat-error *ngIf="isControlHasError('recipientAccountNumber', 'pattern')">
+          {{ 'ERROR_MESSAGE.VALID_ID' | translate }}
+        </mat-error>
+        </mat-form-field>
+    </div>
+  </div>
+
+    <!-- Montos -->
+    <div>
+      <div class="row mt-4 justify-content-center">
+        <div class="col">
+          <p class="h4 text-warning border-bottom border-3">
+            {{ "TARJETA.TITULO_TITTLE_MONTOS" | translate }}
+          </p>
+        </div>
+      </div>
+      <div class="row mt-2 justify-content-center">
+        <div class="col mt-2">
+          <mat-form-field appearance="legacy" class="example-full-width w-100">
+            <mat-label>{{ "TARJETA.TITULO_TITLE_EFEC_MONTOS" | translate }}</mat-label>
+            <img matPrefix class="m-1" src="./assets/images/icons/monto.svg" width="28vh" height="28vh">
+            <input formControlName="effectiveAmount" maxlength="7" (ngModelChange)="checkAmount()" maxlength="7" (keypress)="numberOnlyAmountCash($event)" (keydown.backspace)="backSpace($event)" matInput currencyMask/>
+            <mat-hint>{{ "TARJETA.TITULO_HINT_EFEC_MONTOS" | translate }}
+            </mat-hint>
+            <mat-error *ngIf="isControlHasError('effectiveAmount', 'required')">
+              {{ 'ERROR_MESSAGE.REQUIRED' | translate }}
+            </mat-error>
+            <mat-error *ngIf="isControlHasError('effectiveAmount', 'min')">
+              Ingrese un monto superior a 0 (Cero).
+            </mat-error>
+            <mat-error *ngIf="formValues.effectiveAmount.errors?.serverError">
+              {{formValues.effectiveAmount.errors?.serverError }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col mt-2">
+          <mat-form-field appearance="legacy" class="example-full-width w-100">
+            <mat-label>{{ "TARJETA.TITULO_TITLE_NUM_CHEQUES" | translate }}</mat-label>
+            <img matPrefix (click)="removeOneCheck()" src="./assets/images/icons/menos.svg" width="35vh" height="35vh">
+            <input formControlName="numberCheck"  (keypress)="numberOnlyChecks($event)" type="number" maxlength="3" min="0" matInput/>
+            <img matSuffix (click)="addOneCheck()" src="./assets/images/icons/mas.svg" width="35vh" height="35vh">
+            <mat-error *ngIf="isControlHasError('numberCheck', 'min')">
+              Ingrese un numero valido.
+            </mat-error>
+            <mat-error *ngIf="isControlHasError('numberCheck', 'maxLength')"> Ingrese un numero valido </mat-error>
+            <mat-error *ngIf="isControlHasError('numberCheck', 'max')">
+              No puede usar mas de 999 cheques
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <!-- Montos Cheques -->
+      <div *ngIf="formValues.numberCheck.value>0" [@enterAnimation]>
+        <div class="row mt-2 justify-content-center">
+          <div class="col mt-2">
+            <mat-form-field appearance="legacy" class="example-full-width w-100">
+              <mat-label>Monto en Cheque(s)</mat-label>
+              <img matPrefix class="m-1" src="./assets/images/icons/monto.svg" width="28vh" height="28vh">
+              <input formControlName="amountCheck" type="tel" (ngModelChange)="numberOnlyAmountChecks($event)" (keydown.backspace)="backSpace($event)" matInput currencyMask/>
+              <mat-hint>Ingresa la suma total que vas a depositar en cheque(s)</mat-hint>
+              <mat-error *ngIf="isControlHasError('amountCheck', 'required')"> {{ 'ERROR_MESSAGE.REQUIRED' | translate }} </mat-error>
+              <mat-error *ngIf="isControlHasError('amountCheck', 'min')"> Ingrese un monto superior a 0 (Cero). </mat-error>
+              <mat-error *ngIf="formValues.amountCheck.errors?.serverError">
+                {{formValues.amountCheck.errors?.serverError }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Informacion Legal -->
+    <div *ngIf="total >= config.legalInformation" [@enterAnimation]>
+      <div class="row mt-4 justify-content-center">
+        <div class="col">
+          <p class="h4 text-warning border-bottom border-3">
+            Información legal
+          </p>
+        </div>
+      </div>
+      <div class="row mt-2 justify-content-center">
+        <div class="col mt-2">
+          <mat-form-field appearance="legacy" class="example-full-width w-100">
+            <mat-label>Fondos Provienen de</mat-label>
+            <input formControlName="fundsSource" type="text" maxlength="150" matInput/>
+            <mat-hint>Indica de donde provienen los fondos</mat-hint>
+            <mat-error *ngIf="isControlHasError('fundsSource', 'required')"> {{ 'ERROR_MESSAGE.REQUIRED' | translate }} </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col mt-2">
+          <mat-form-field appearance="legacy" class="example-full-width w-100">
+            <mat-label>Fondos Serán utilizados en</mat-label>
+            <input formControlName="fundsDestination" maxlength="150" type="text" matInput />
+            <mat-hint>Indica a que se destinarán los fondos</mat-hint>
+            <mat-error *ngIf="isControlHasError('fundsDestination', 'required')"> {{ 'ERROR_MESSAGE.REQUIRED' | translate }} </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <!-- Soy titular -->
+  <div *ngIf="accountInfoLoad" class="row justify-content-center" [@enterAnimation]>
+      <div class="col text-center">
+        <p class="h3 mt-4">¿Soy el titular de esta cuenta?</p>
+        <span>NO</span
+        ><mat-slide-toggle (input)="imDepositor()" formControlName="slideToggleDepositor" class="m-2"></mat-slide-toggle
+      ><span>SI</span>
+      </div>
+
+      <div class="row mt-4 justify-content-center">
+        <div class="col">
+          <p class="h4 text-warning border-bottom border-3"> Datos del depositante </p>
+        </div>
+      </div>
+      <div class="row mt-2 justify-content-center">
+        <div class="col mt-2">
+          <mat-form-field appearance="legacy" class="example-full-width w-100">
+            <mat-label>Nombre de quien efectua el depósito</mat-label>
+            <input formControlName="depositorName" maxlength="64" type="text" matInput/>
+            <mat-hint>Indica los nombres y apellidos del depositante</mat-hint>
+            <mat-error *ngIf="isControlHasError('depositorName', 'required')"> {{ 'ERROR_MESSAGE.REQUIRED' | translate }} </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col mt-2">
+          <mat-form-field appearance="legacy" class="example-full-width w-100">
+            <mat-label>CI / Pasaporte</mat-label>
+            <input formControlName="depositorDNI" maxlength="25" type="text" matInput (input)="dniCheck()" />
+            <mat-hint>Indica el número de identificación del depositante</mat-hint>
+            <mat-error *ngIf="isControlHasError('depositorDNI', 'required')"> {{ 'ERROR_MESSAGE.REQUIRED' | translate }} </mat-error>
+            <mat-error *ngIf="formValues.depositorDNI.errors?.serverError">
+              {{formValues.depositorDNI.errors?.serverError }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div *ngIf="deviceService.isDesktop()" class="row mt-2 justify-content-center">
+        <div class="col mt-2">
+          <mat-form-field appearance="legacy" class="example-full-width w-100">
+            <mat-label>Número de Teléfono</mat-label>
+            <input formControlName="depositorPhone" type="tel" maxlength="10" (keypress)="numberOnly($event)" matInput/>
+            <mat-hint>Indica el número de teléfono del depositante</mat-hint>
+            <mat-error *ngIf="isControlHasError('depositorPhone', 'required')"> {{ 'ERROR_MESSAGE.REQUIRED' | translate }} </mat-error>
+            <mat-error *ngIf="isControlHasError('depositorPhone', 'minLength')"> {{ 'ERROR_MESSAGE.PHONEVALID' | translate }} </mat-error>
+            <mat-error *ngIf="isControlHasError('depositorPhone', 'pattern')"> {{ 'ERROR_MESSAGE.PHONEVALID' | translate }} </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col mt-2">
+          <mat-form-field appearance="legacy" class="example-full-width w-100">
+            <mat-label>Correo Electrónico</mat-label>
+            <input formControlName="depositorEmail" type="email" maxlength="150" matInput />
+            <mat-hint>Indica el correo electrónico del depositante</mat-hint>
+            <mat-error *ngIf="isControlHasError('depositorEmail', 'required')"> {{ 'ERROR_MESSAGE.REQUIRED' | translate }} </mat-error>
+            <mat-error *ngIf="isControlHasError('depositorEmail', 'pattern')"> {{ 'ERROR_MESSAGE.EMAILVALID' | translate }} </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </form>
+  <!--Panel Legal Information-->
+  <!---->
+  <!--Panel Detail Checks-->
+  <!---->
+</div>
+<div class="container mt-3">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-6">
+
+      <div *ngIf="!isSignEmpty">
+        <div class="row mt-4 justify-content-center">
+          <div class="col">
+            <p class="h4 text-warning border-bottom border-3"> Firma Digital </p>
+          </div>
+        </div>
+        <div class="d-flex flex-row-reverse">
+          <button type="button" (click)="goToSignature()" class="btn btn-link"><mat-icon aria-hidden="false" aria-label="Limpiar firma">edit</mat-icon></button>
+        </div>
+        <div class="d-flex justify-content-center">
+          <img *ngIf="!isSignEmpty" [src]="signature">
+          <hr class="b0 m0">
+        </div>
+      </div>
+      <button
+        *ngIf="isSignEmpty"
+        (click)="goToSignature()"
+        type="button"
+        mat-stroked-button
+        color="primary"
+        class="w-100 p-2 border-button-footer mt-3"
+      >
+        <span class="h2">{{ "Capturar Firma" }}</span>
+      </button>
+      <div *ngIf="isSignEmpty" class="text-center">
+        <span class="text-muted mt-3" [class.text-warning]="isSignEmptyerror">Ingrese su firma digital</span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container mt-3">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-6">
+      <button (click)="save()" type="button" mat-stroked-button color="primary" class="w-100 p-2 border-button-footer mt-3" [disabled]="unsend" >
+        <span class="h2">Generar Depósito por {{ total | currency }}</span>
+      </button>
+    </div>
+  </div>
+</div>
+

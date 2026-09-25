@@ -1,0 +1,69 @@
+<div class="container max-width-container-main">
+  <div class="row justify-content-center">
+    <div class="col-10 col-md-5">
+      <img
+        src="../../../../../assets/images/icons/barraBotones1.svg"
+        alt="timeline1"
+      />
+    </div>
+  </div>
+
+  <div class="row justify-content-center mt-2">
+    <div class="col text-center">
+      <h1 class="mb-2">{{ "SELECCION_TRANSACCION.TITULO" | translate }}</h1>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-8 col-md-12 mx-auto text-center">
+      <p class="h3 subtitle-p">
+        {{ "SELECCION_TRANSACCION.DESCRIPCION" | translate }}
+      </p>
+    </div>
+  </div>
+
+  <div class="container overflow-auto mt-4 mb-2">
+    <div class="row">
+      <div class="col-md-4 col-12" *ngFor="let item of transactionsOptions">
+        <mat-card
+          [routerLink]="[item.route]"
+          matRipple
+          matRippleCentered="true"
+          class=" card cursor-pointer mb-3 border-selector-card-options p-0 mat-elevation-z5 w-100 d-flex justify-content-center align-self-center h-card-selector p-3 mx-auto max-width-card-selector"
+        >
+          <div class="row justify-content-center">
+            <div class="col-3 d-flex align-self-center p-0 text-center">
+              <img
+                class="max-height-40px color-secondary min-height-30px mx-auto"
+                src="{{ item.icon }}"
+                alt="icons selector"
+              />
+            </div>
+            <div class="col-9 p-1 d-flex align-self-center">
+              <p class="h1 color-primary line-h-selector">
+                {{ item.type }}
+              </p>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-10 col-md-3">
+        <button
+          *ngIf="hasTransaccion$ | async"
+          (click)="ToListTransaction()"
+          type="button"
+          mat-stroked-button
+          color="primary"
+          class="w-100 p-2 border-button-footer mt-3"
+        >
+          <span class="h2">
+            {{ "SELECCION_TRANSACCION.TITTLE_BUTTON" | translate }}</span
+          >
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

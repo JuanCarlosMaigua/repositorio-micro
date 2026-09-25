@@ -1,0 +1,51 @@
+.app-splash-screen {
+  background: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  transition: left 0.5s;
+}
+
+.app-label {
+  margin-top: 32px;
+  //top: -30vw;
+  color: $bb-caja-verde-var-bootstrap-primary;
+  font-size: 2.5em;
+  font-family: "Pacifico", cursive;
+  border-style: solid !important;
+  border-width: 1px !important;
+}
+
+.app-splash-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.app-logo {
+  background: url("./../../../assets/images/general/logo-bb-cv.svg");
+  background-repeat: no-repeat;
+  max-width: 100%;
+  background-position: center;
+  background-size: contain;
+  width: 40vh;
+  height: 40vh;
+}
+
+.app-bar-progress{
+  width: 20vw;
+  // position: absolute !important;
+  // top: 95vw;
+}
+
+
+

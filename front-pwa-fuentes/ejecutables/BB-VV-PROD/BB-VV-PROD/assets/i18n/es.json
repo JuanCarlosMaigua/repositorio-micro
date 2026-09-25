@@ -1,0 +1,124 @@
+{
+  "General": {
+    "Botones": {
+      "Siguiente": "Continuar",
+      "Omitir": "Omitir",
+      "Enviar": "Enviar",
+      "Atras": "Volver",
+      "Cambiar.Cuenta": "Cerrar",
+      "GenerarPapeleta": "Generar Papeleta",
+      "AgregarDeposito": "Agregar Depósito",
+      "Cambiar.Cuenta.Descripcion": "Clic aquí para cerrar",
+      "Nuevo": "Nueva Papeleta",
+      "EnviarEncuesta": "Enviar Calificación",
+      "Descargar": "Descarga comprobante",
+      "IrATransacciones": "Mis Transacciones",
+      "Reintentar": "Reintentar"
+    },
+    "DialogModal": {
+      "Titulo": "Atención",
+      "BotonAceptar": "Aceptar"
+    }
+  },
+  "Pantalla": {
+    "Boarding": {
+      "tablero1": {
+        "titulo": "Nueva Caja Verde",
+        "item1": "No se emiten ni se solicitan papeletas",
+        "item2": "Hasta ",
+        "item2.1": " transacciones",
+        "item3": "Monto máximo en efectivo de ",
+        "item4": "Depósito en cheque no tiene monto máximo"
+      },
+      "tablero2": {
+        "titulo": "Paso 1",
+        "descripcion": "Genera tu papeleta digital"
+      },
+      "tablero3": {
+        "titulo": "Paso 2",
+        "descripcion": "Muestra al cajero el QR que verás en la pantalla"
+      },
+      "tablero4": {
+        "titulo": "Paso 3",
+        "descripcion": "Descarga tu comprobante"
+      }
+    },
+    "Transacciones": {
+      "Titulo": "Lista de Transacciones",
+      "Descripcion": "Aquí podrás visualizar las papeletas y los comprobantes digitales de tus transacciones.",
+      "TarjetaQR": "Ver QR",
+      "TarjetaVer": "Ver Comprobante",
+      "TarjetaMonto": "Monto Total",
+      "TarjetaVencimiento": "Vence en"
+    },
+    "GeneraComprobante": {
+      "Titulo": "Genera tu comprobante de depósito",
+      "Descripcion": "Ingresa los datos del depósito.",
+      "SeccionMonto": "Montos",
+      "SeccionLegal": "Información Legal",
+      "SeccionLegal.Descripcion": "Los montos mayores o iguales a $ 5,000.00 deben ser declarados\n",
+      "SeccionDatosDepositante": "Datos del depositante",
+      "SeccionDatosDepositante.Pregunta": "Soy el titular de esta cuenta",
+      "SeccionDatosDelTitular": "Datos del titular"
+    },
+    "QR": {
+      "Titulo": "Acércate a la ventanilla verde",
+      "Descripcion": "Presenta este código al cajero para realizar tu depósito.",
+      "DepositoA": "Depósito a"
+    },
+    "Comprobante": {
+      "Titulo": "Comprobante",
+      "Descripcion": "Tu comprobante de depósito verde se descargará automáticamente en tu celular.\n"
+    },
+    "Encuesta": {
+      "Titulo": "Encuesta de satisfacción",
+      "Descripcion": "Indícanos cómo caliﬁcas nuestro servicio"
+    }
+  },
+  "Formulario": {
+    "Comprobante": {
+      "Campos": {
+        "NumeroDeCuenta": "Número de Cuenta",
+        "NumeroDeCuentaHint": "Ingresa el número de cuenta a depositar",
+        "MontoEfectivo": "Monto en Efectivo",
+        "MontoEfectivoHint": "Ingresa la suma que vas a depositar en efectivo\n",
+        "NCheques": "Número de Cheque(s)",
+        "NChequesHint": "Indique cuantos cheque(s) va a depositar",
+        "MontoCheque": "Monto en Cheque(s)",
+        "MontoChequeHint": "Ingresa la suma que vas a depositar en cheque(s)\n",
+        "Total": "Total a depositar",
+        "TotalHint": "Este es el monto total a depositar",
+        "ProcedenciaFondos": "Fondos provienen de",
+        "ProcedenciaFondosHint": "Indica de donde provienen los fondos",
+        "DestinoFondo": "Fondos serán utilizados en",
+        "DestinoFondoHint": "Indica a que se destinarán los fondos",
+        "DepositanteNombre": "Nombre de quien efectúa el depósito",
+        "DepositanteNombreHint": "Indica los nombres y apellidos del depositante",
+        "DepositanteDNI": "CI / Pasaporte",
+        "DepositanteDNIHint": "Indica el número de identificación del depositante"
+      }
+    },
+    "Encuesta": {
+      "Campos": {
+        "Comentario": "Comentarios (Opcional)"
+      }
+    },
+    "Error": {
+      "Requerido": "Este es un campo Requerido",
+      "SoloNumeros": "Digite solo números",
+      "NumeroInvalido": "Número inválido",
+      "RequeridoTodo": "Debes llenar toda la información necesaria.",
+      "CuentaNoExiste": "El número de cuenta ingresado no existe.",
+      "Desconocido": "Error Desconocido",
+      "NoInternet": "Oh! Ocurrio un problema con la conexión a internet, por favor intente de nuevo",
+      "NoSeRegistro": "No se ha podido registrar su dispositivo, por favor inténtelo de nuevo",
+      "DemasiadasPeticiones": "Haz alcanzado tu límite de intentos por depósito.",
+      "NoStorage": "Lo sentimos, al parecer su dispositivo no es compatible con este sistema, actualice su navegador o intente desde otro dispositivo.",
+      "TotalDeposito": "El monto debe ser mayor a 0.",
+      "NCheque": "Debes registrar el monto del cheque ingresado.",
+      "NumeroTRX": "Haz alcanzado tu límite de depósitos diarios.",
+      "ErrorServicios": "Error de conexión, intente de nuevo mientras se levantan los servicios.",
+      "ExcedeEfectivo": "El monto límite en efectivo es de "
+    }
+  }
+}

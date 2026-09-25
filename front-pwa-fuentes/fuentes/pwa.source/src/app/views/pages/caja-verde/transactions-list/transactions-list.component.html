@@ -1,0 +1,148 @@
+<div class="container max-width-container-main">
+  <div class="row justify-content-center">
+    <div class="col text-center">
+      <h1 class="mb-2">{{ "LISTAR_TRANSACCION.TITULO" | translate }}</h1>
+      <p class="h3 subtitle-p">
+        {{ "LISTAR_TRANSACCION.DESCRIPCION" | translate }}
+      </p>
+    </div>
+  </div>
+
+  <mat-tab-group
+    class="mt-3"
+    color="warn"
+    backgroundColor="primary"
+    mat-stretch-tabs
+  >
+    <mat-tab label="{{ 'LISTAR_TRANSACCION.TITULOTAB_NOREALIZE' | translate }}">
+      <div class="container align-items-stretch overflow-auto max-height-50">
+        <div class="row">
+          <ng-template ngFor let-item [ngForOf]="transaccion$| async">
+            <div class="col-md-6 col-12 p-2" *ngIf="item.receipt.codTrans == null">
+
+
+              <mat-card (click)="goToQr(item)" matRipple matRippleCentered="true" class="card border-top-0 border-bottom-0 border-right-0 border-info-card border-5 cursor-pointer mt-3" [ngClass]="{'height-card': deviceService.isDesktop() }">
+                <div class="row justify-content-center">
+                  <div class="col-11 col-md-9">
+                    <p class="h4 text-warning">{{ getTransactionType(item.typeNemonic) }}</p>
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+                  <div class="col-6 offset-0 col-md-5 offset-md-1 pt-0 pb-2">
+                    <p class="h3 text-dark font-weight-bold">
+                      <strong>{{ getName(item) }}</strong>
+                    </p>
+                    <p class="h5 text-dark mt-n1">
+                      <span>{{ getDescripcion(item) }}</span>
+                    </p>
+                    <p class="h3 text-dark font-weight-bold">
+                      <strong>$ {{ getTotal(item) }}</strong>
+                    </p>
+                    <p class="h5">vence en {{ getDateofExpiry(item.createDate) }}</p>
+                  </div>
+                  <div class="col-5">
+                    <div class="container text-center card p-2 mat-elevation-z2 card-icon">
+                      <div class="row">
+                        <div class="col">
+                          <img
+                            class="max-height-40px"
+                            src="../../../../../assets/images/icons/bb-qr-green.svg"
+                            alt="qr green"
+                          />
+                        </div>
+                      </div>
+                      <div class="row pt-0">
+                      <span class="h6 mb-0">{{
+                        "LISTAR_TRANSACCION.TITLEQR" | translate
+                        }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </mat-card>
+            </div>
+          </ng-template>
+
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="{{ 'LISTAR_TRANSACCION.TITULOTAB_REALIZE' | translate }}">
+      <div class="container align-items-stretch overflow-auto max-height-50">
+        <div class="row">
+          <ng-template ngFor let-item [ngForOf]="transaccion$| async">
+            <div class="col-md-6 col-12 p-2" *ngIf="item.receipt.codTrans != null">
+              <mat-card (click)="goToVoucher(item)" matRipple matRippleCentered="true" class="card border-top-0 border-bottom-0 border-right-0 border-info-card border-5 cursor-pointer mt-3" [ngClass]="{'height-card': deviceService.isDesktop() }">
+                <div class="row justify-content-center">
+                  <div class="col-11 col-md-9">
+                    <p class="h4 text-warning">{{ getTransactionType(item.typeNemonic) }}</p>
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+                  <div class="col-6 offset-0 col-md-5 offset-md-1 pt-0 pb-2">
+                    <p class="h3 text-dark font-weight-bold">
+                      <strong>{{ getName(item) }}</strong>
+                    </p>
+                    <p class="h5 text-dark mt-n1">
+                      <span>{{ getDescripcion(item) }}</span>
+                    </p>
+                    <p class="h3 text-dark font-weight-bold">
+                      <strong>{{ getTotal(item) | currency}}</strong>
+                    </p>
+                    <p class="h5">
+                    <p class="h5">vence en {{ getDateofExpiry(item.createDate) }}</p>
+                  </div>
+                  <div class="col-5">
+                    <div
+                      class="
+                      container
+                      text-center
+                      card
+                      p-2
+                      mat-elevation-z2
+                      card-icon
+                    "
+                    >
+                      <div class="row">
+                        <div class="col">
+                          <img
+                            class="max-height-40px color-secondary"
+                            src="../../../../../assets/images/icons/bb-eye.svg"
+                            alt="eye green"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="row pt-0">
+                      <span class="h6 mb-0 p-0">{{
+                        "LISTAR_TRANSACCION.TITLEVISTA" | translate
+                        }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </mat-card>
+            </div>
+          </ng-template>
+
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-4">
+        <button
+          (click)="ToAddTransaction()"
+          type="button"
+          mat-stroked-button
+          color="primary"
+          class="w-100 p-2 border-button-footer mt-3"
+        >
+          <span class="h2">{{
+            "LISTAR_TRANSACCION.TITULO_BUTTON" | translate
+          }}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,250 @@
+<div class="container max-width-container-main" *ngIf="Transaction$ | async as _transaction">
+  <div class="row justify-content-center">
+    <div class="col text-center">
+      <h1>{{ "COMPROBANTE.TITULO" | translate }}</h1>
+    </div>
+  </div>
+  <div class="row justify-content-center mb-4">
+    <div class="col-12 col-md-6 mx-auto text-center">
+      <p class="h3 subtitle-p">
+        {{ "COMPROBANTE.DESCRIPCION" | translate }}
+      </p>
+    </div>
+  </div>
+
+  <div>
+    <div #screen style="
+    background-color: white;" class="container card pt-3 mat-elevation-z2 border-top-0 border-bottom-0 border-right-0 border-info-card border-5 max-width-container-voucher bg-white">
+      <div class="row pt-3 justify-content-center bg-white">
+        <div class="col-9 col-md-5 text-left p-0">
+          <img
+            src='data:image/png;base64,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'
+            style="width: 100%;padding-right: 10px;">
+        </div>
+        <div class="col-3 offset-0 offset-md-3">
+          <div class="d-block float-end"></div>
+          <ngx-kjua [text]="_transaction.ctCode" [renderAsync]="false" [render]="'svg'" [crisp]="false" [minVersion]="1"
+                    [ecLevel]="'L'" [size]="40" [ratio]="undefined" [fill]="'#92c640'" [back]="'#fff'" [rounded]="50" [quiet]="1"
+                    [mode]="'plain'" [mSize]="0" [mPosX]="0" [mPosY]="0" [label]="''" [fontname]="'sans-serif'"
+                    [fontcolor]="'#ff9818'" [image]="undefined" [cssClass]="'content-qr-voucher'"></ngx-kjua>
+
+          <span class="d-block float-end h6 text-center mt-0 mb-0 color-secondary">{{
+            _transaction.ctCode
+            }}</span>
+        </div>
+      </div>
+      <div class="row pt-0 bg-white">
+        <div class="col offset-md-1 offset-0">
+          <p class="h2 color-primary">
+            <strong>{{ getName(_transaction) | titlecase }} </strong>
+          </p>
+          <p class="h3 color-primary line-space-voucher">
+            {{ getDescripcion(_transaction) | titlecase }}
+          </p>
+          <p class="h3 color-primary line-space-voucher">
+            {{ "COMPROBANTE.TITLE_FECHA" | translate }}
+          </p>
+          <p class="h3 color-primary line-space-voucher">
+            {{ _transaction.createDate |  date:'M/d/y, h:mm:ss a' }}
+          </p>
+        </div>
+      </div>
+      <div class="row pt-3 bg-white">
+        <div class="col-5 offset-md-1 offset-0">
+          <p class="h4 text-dark line-space-voucher">
+            {{ "COMPROBANTE.TITLE_EFE" | translate }}:
+          </p>
+        </div>
+        <div class="col-6 float-right">
+          <p class="h4 text-dark line-space-voucher">
+            {{ getTotalCash(_transaction) | currency }}
+          </p>
+        </div>
+      </div>
+      <div class="row bg-white" *ngIf="getNumberCheck(_transaction)>0">
+        <div class="col-5 offset-md-1 offset-0">
+          <p class="h4 text-dark line-space-voucher">
+            {{ "COMPROBANTE.TITLE_CHEQUE" | translate }} ({{
+            getNumberCheck(_transaction)
+            }}):
+          </p>
+        </div>
+        <div class="col-6">
+          <p class="h4 text-dark line-space-voucher" *ngIf="!_transaction.payCard">
+            {{ getTotalCheck(_transaction) | currency }}
+          </p>
+        </div>
+      </div>
+
+      <!-- <div class="row bg-white" *ngIf="false">
+        <div class="col-5 offset-md-1 offset-0">
+          <p class="h4 text-dark line-space-voucher">
+            Cheque BB:
+          </p>
+        </div>
+        <div class="col-6">
+          <p class="h4 text-dark line-space-voucher">
+            {{ _transaction.payCard.amountCheckBb | currency }}
+          </p>
+        </div>
+      </div>-->
+      <div *ngIf="_transaction.payCard">
+        <div class="row bg-white" *ngIf="_transaction?.payCard.amountCheckOb">
+          <div class="col-5 offset-md-1 offset-0">
+            <p class="h4 text-dark line-space-voucher">
+              Cheque Otros Bcos:
+            </p>
+          </div>
+          <div class="col-6">
+            <p class="h4 text-dark line-space-voucher">
+              {{ _transaction.payCard.amountCheckOb | currency }}
+            </p>
+          </div>
+        </div>
+
+        <div class="row bg-white" *ngIf="_transaction?.payCard.amountTotalCheckEx>0">
+          <div class="col-5 offset-md-1 offset-0">
+            <p class="h4 text-dark line-space-voucher">
+              Cheque Mia:
+            </p>
+          </div>
+          <div class="col-6">
+            <p class="h4 text-dark line-space-voucher">
+              {{ _transaction.payCard.amountCheckMi | currency }}
+            </p>
+          </div>
+        </div>
+
+        <div class="row bg-white" *ngIf="_transaction?.payCard.amountTotalCheckEx>0">
+          <div class="col-5 offset-md-1 offset-0">
+            <p class="h4 text-dark line-space-voucher">
+              Cheque New:
+            </p>
+          </div>
+          <div class="col-6">
+            <p class="h4 text-dark line-space-voucher">
+              {{ _transaction.payCard.amountCheckNy | currency }}
+            </p>
+          </div>
+        </div>
+
+        <div class="row bg-white" *ngIf="_transaction.payCard.amountTotalCheckEx>0">
+          <div class="col-5 offset-md-1 offset-0">
+            <p class="h4 text-dark line-space-voucher">
+              Cheque Otp:
+            </p>
+          </div>
+          <div class="col-6">
+            <p class="h4 text-dark line-space-voucher">
+              {{ _transaction.payCard.amountCheckOp | currency }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+
+      <div *ngIf="_transaction.payService" class="row bg-white">
+        <div class="col-5 offset-md-1 offset-0">
+          <p class="h4 text-dark line-space-voucher">
+            {{ "COMPROBANTE.TITLE_COMISION" | translate }}:
+          </p>
+        </div>
+        <div class="col-6">
+          <p class="h4 text-dark line-space-voucher">
+            {{ _transaction.payService.commission | currency }}
+          </p>
+        </div>
+      </div>
+      <div class="row bg-white">
+        <div class="col-5 offset-md-1 offset-0">
+          <p class="h4 text-dark line-space-voucher">
+            <strong>{{ "COMPROBANTE.TITLE_VALUE_TOTAL" | translate }}:</strong>
+          </p>
+        </div>
+        <div class="col-6">
+          <p class="h4 text-dark line-space-voucher">
+            {{ getTotal(_transaction) | currency}}
+          </p>
+        </div>
+      </div>
+      <div class="row bg-white ">
+        <div class="col-5 offset-md-1 offset-0">
+          <p class="h4 text-dark line-space-voucher">
+            {{ "COMPROBANTE.TITLE_MONEDA" | translate }}:
+          </p>
+        </div>
+        <div class="col-6">
+          <p class="h4 text-dark line-space-voucher">
+            {{ _transaction.receipt.currency | uppercase }}
+          </p>
+        </div>
+      </div>
+      <div class="row pt-4 bg-white">
+        <div class="col-11 offset-md-1 offset-0">
+          <p class="h4 color-primary line-space-voucher">
+            <strong> {{  _transaction.receipt.codTrans }} {{  _transaction.receipt.ipAgency }} {{  _transaction.receipt.officeUser }}</strong>
+          </p>
+        </div>
+      </div>
+      <div class="row bg-white">
+        <div class="col-11 offset-md-1 offset-0">
+          <p class="h4 color-primary line-space-voucher">
+            <strong
+            >{{ "COMPROBANTE.TITLE_SEC" | translate }}:
+              {{ _transaction.receipt.sec }}</strong
+            >
+          </p>
+        </div>
+      </div>
+      <div class="row bg-white">
+        <div class="col-11 offset-md-1 offset-0">
+          <p class="h4 color-primary line-space-voucher">
+            <strong> {{ _transaction.receipt.codTransOnOff }} {{ _transaction.receipt.description | uppercase }} {{ _transaction.receipt.officeHour }}</strong>
+          </p>
+        </div>
+      </div>
+      <div class="row bg-white justify-content-center pt-3 pb-3">
+        <div *ngIf="_transaction.deposit" class="col-12 text-center">
+          <img [src]="_transaction.deposit.sign">
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="container mt-2">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-5">
+        <button
+          (click)="downloadImage()"
+          type="button"
+          mat-stroked-button
+          color="primary"
+          class="w-100 p-2 border-button-footer mt-3"
+        >
+          <span class="h2">{{
+            "COMPROBANTE.TITTLE_DOWNLOAD_VOUCHE" | translate
+          }}</span>
+        </button>
+      </div>
+      <div class="col-12 col-md-3">
+        <button
+          (click)="back(_transaction)"
+          type="button"
+          mat-stroked-button
+          color="primary"
+          class="w-100 p-2 border-button-footer mt-3"
+        >
+          <span class="h2">{{
+            "COMPROBANTE.TITTLE_BUTTON_BACK" | translate
+          }}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="download">
+  <img #canvas>
+  <a #downloadLink></a>
+</div>

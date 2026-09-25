@@ -1,0 +1,67 @@
+<div *ngIf="Transaction$ | async as _transaction">
+  <div class="row justify-content-center mt-2">
+    <div class="col text-center">
+
+      <h1 class="text-center">Califica nuestro Servicio</h1>
+      <p class="h3 subtitle-p text-dark">
+        ¿Qué tal estuvo tu experiencia?
+      </p>
+      <div class="row">
+        <div class="col mt-3">
+          <mat-button-toggle-group aria-label="Font Style">
+            <mat-button-toggle (click)="check(true)">
+              <img src="../../../../../assets/images/icons/bb-tree-happy.svg" alt="timeline1" style="height: 19vh;"/>
+            </mat-button-toggle>
+            <mat-button-toggle (click)="check(false)">
+              <img src="../../../../../assets/images/icons/bb-tree-sad.svg" alt="timeline1" style="height: 19vh;"/>
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col mt-2">
+          <mat-form-field appearance="legacy">
+            <mat-label>Comentarios (Opcional)</mat-label>
+            <textarea [(ngModel)]="commentValue" matInput rows="5" cols="120"></textarea>
+            <mat-hint>Deja tus impresiones</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+  <div class="container mt-3">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-6">
+        <button
+          (click)="sendPoll(_transaction)"
+          type="button"
+          mat-stroked-button
+          color="primary"
+          class="w-100 p-2 mt-3 send"
+        >
+          <span class="h2">Enviar Calificación</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="container mt-3">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-6">
+        <button
+
+          routerLink="/"
+          type="button"
+          mat-stroked-button
+          color="primary"
+          class="w-100 p-2 mt-3 back"
+        >
+          <span class="h2">Ahora no</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>

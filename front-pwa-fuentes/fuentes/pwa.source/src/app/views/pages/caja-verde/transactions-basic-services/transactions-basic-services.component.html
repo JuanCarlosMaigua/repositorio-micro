@@ -1,0 +1,325 @@
+<div class="container max-width-container-main">
+  <form autocomplete="off" [formGroup]="formGroupBasicService">
+    <div class="row justify-content-center">
+      <div class="col-10 col-md-5">
+        <img
+          src="../../../../../assets/images/icons/barraBotones2.svg"
+          alt="timeline1"
+        />
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col text-center">
+        <h1 class="h1 mb-2">{{ "SERVICIOS.TITULO" | translate }}</h1>
+        <p class="h3 subtitle-p text-dark">
+          {{ "SERVICIOS.DESCRIPCION" | translate }}
+        </p>
+      </div>
+    </div>
+    <div class="row mt-3 justify-content-center">
+      <div class="col">
+        <p class="h4 text-warning border-bottom border-3">
+          {{ "SERVICIOS.TITTLE_DATA_SERVICES" | translate }}
+        </p>
+      </div>
+    </div>
+    <div class="row mt-2 justify-content-center">
+      <div class="col">
+        <div *ngIf="!serviceLoad">
+          <div class="row justify-content-md-start justify-content-center">
+
+
+            <div class="col-12 col-md-6 mt-2">
+              <mat-form-field appearance="legacy" class="example-full-width w-100">
+                <mat-label>{{ "SERVICIOS.TITTLE_INPUT_CED" | translate }}</mat-label>
+                <img matPrefix class="m-1" src="./assets/images/icons/cuenta.svg" width="28vh" height="28vh">
+                <input formControlName="dniHolder" (keypress)="numberOnly($event)" (input)="dniCheck()" matInput maxlength="10" type="tel" matInput/>
+                <mat-hint>{{ "SERVICIOS.TITTLE_HINT_INPUT_CED" | translate }}</mat-hint>
+                <a mat-button *ngIf="formValues.dniHolder.value?.length==10 && !validateDNI" matSuffix mat-icon-button aria-label="">
+                  <mat-icon>done</mat-icon>
+                </a>
+                <mat-error *ngIf="isControlHasError('dniHolder', 'required')"> {{ 'ERROR_MESSAGE.REQUIRED' | translate }} </mat-error>
+                <mat-error *ngIf="formValues.dniHolder.errors?.serverError">
+                  {{formValues.dniHolder.errors?.serverError }}
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+
+            <div class="col-12 col-md-6 mt-2">
+              <mat-form-field appearance="legacy" class="example-full-width w-100">
+                <mat-label>{{ "SERVICIOS.TITTLE_INPUT_SERVICE_PAY" | translate }}</mat-label>
+                <mat-select formControlName="service" (selectionChange)="getCompany($event)" [disabled]="!servicesLoad">
+                  <mat-option value=""></mat-option>
+                  <mat-option *ngFor="let s of services" [value]="s.idService">
+                    {{ s.nameService }}
+                  </mat-option>
+                </mat-select>
+                <mat-hint>{{ "SERVICIOS.TITTLE_HINT_SERVICE_PAY" | translate }}</mat-hint>
+                <mat-spinner *ngIf="!servicesLoad" diameter="20" matSuffix></mat-spinner>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row justify-content-md-start justify-content-center">
+            <div class="col-12 col-md-6 mt-2" *ngIf="companiesLoad">
+              <mat-form-field appearance="legacy" class="example-full-width w-100">
+                <mat-label>{{ "SERVICIOS.TITTLE_HINT_SERVICE_PAY" | translate }}</mat-label>
+                <mat-select formControlName="company" (selectionChange)="setCompany($event)" [disabled]="!companiesLoad">
+                  <mat-option value=""></mat-option>
+                  <mat-option *ngFor="let c of companies" [value]="c.idCompany">
+                    {{ c.nameCompany }}
+                  </mat-option>
+                </mat-select>
+                <mat-hint>{{ "SERVICIOS.TITTLE_INPUT_ENTERPRISE" | translate }}</mat-hint>
+                <mat-spinner *ngIf="!companiesLoad" diameter="20" matSuffix></mat-spinner>
+              </mat-form-field>
+            </div>
+
+
+            <div class="col-12 col-md-6 mt-2" *ngIf="company?.region.length > 0">
+              <mat-form-field appearance="legacy" class="example-full-width w-100">
+                <mat-label>{{ "SERVICIOS.TITTLE_INPUT_REGION" | translate }}</mat-label>
+                <mat-select formControlName="region" (selectionChange)="setRegion($event)" [disabled]="!companiesLoad">
+                  <mat-option value=""></mat-option>
+                  <mat-option *ngFor="let r of company.region" [value]="r.key">
+                    {{ r.value }}
+                  </mat-option>
+                </mat-select>
+                <mat-hint>{{ "SERVICIOS.TITTLE_HINT_REGION" | translate }}</mat-hint>
+                <mat-spinner *ngIf="!companiesLoad" diameter="20" matSuffix></mat-spinner>
+              </mat-form-field>
+            </div>
+
+            <div class="col-12 col-md-6 mt-2" *ngIf="addresNoFijo()">
+              <mat-form-field appearance="legacy" class="example-full-width w-100">
+                <mat-label>{{ "SERVICIOS.TITTLE_INPUT_UBICACION" | translate }}</mat-label>
+                <mat-select formControlName="area" (selectionChange)="setArea($event)" [disabled]="!companiesLoad">
+                  <mat-option value=""></mat-option>
+                  <mat-option *ngFor="let a of company.area" [value]="a.key">
+                    {{ a.value }}
+                  </mat-option>
+                </mat-select>
+                <mat-hint>{{ "SERVICIOS.TITTLE_HINT_UBICACION" | translate }}</mat-hint>
+                <mat-spinner *ngIf="!companiesLoad" diameter="20" matSuffix></mat-spinner>
+              </mat-form-field>
+            </div>
+
+            <div class="col-12 col-md-6 mt-2" *ngIf="company?.type.length > 0">
+              <mat-form-field appearance="legacy" class="example-full-width w-100">
+                <mat-label>Tipo</mat-label>
+                <mat-select formControlName="type" (selectionChange)="setType($event)" [disabled]="!companiesLoad">
+                  <mat-option value=""></mat-option>
+                  <mat-option *ngFor="let t of company.type" [value]="t.key">
+                    {{ t.value }}
+                  </mat-option>
+                </mat-select>
+                <mat-hint>Seleccione el tipo de servicio</mat-hint>
+                <mat-spinner *ngIf="!companiesLoad" diameter="20" matSuffix></mat-spinner>
+              </mat-form-field>
+            </div>
+
+            <div class="col-12 col-md-6 mt-2">
+              <mat-form-field
+                appearance="legacy"
+                class="example-full-width w-100"
+              >
+                <mat-label>{{
+                  "SERVICIOS.TITTLE_INPUT_SERVICECODE" | translate
+                  }}</mat-label>
+                <img *ngIf="!fijo()" matPrefix class="m-1" src="./assets/images/icons/cuenta.svg" width="28vh" height="28vh">
+                <span *ngIf="fijo()" matPrefix>{{ formGroupBasicService.controls.area.value }}</span>
+                <input type="tel" formControlName="serviceCode" matInput maxlength="50"/>
+                <mat-hint>
+                  {{ "SERVICIOS.TITTLE_HINT_SERVICECODE" | translate }}</mat-hint
+                >
+                <a mat-button #tooltip="matTooltip"
+                   matTooltip="Ingresa el código de servicio / planilla / suministro / teléfono"
+                   matTooltipPosition="above"
+                   matTooltipHideDelay="100000" matSuffix mat-icon-button aria-label="Info">
+                  <mat-icon>help</mat-icon>
+                </a>
+                <mat-error *ngIf="isControlHasError('serviceCode', 'required')"> {{ 'ERROR_MESSAGE.REQUIRED' | translate }} </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-12 mt-2">
+              <button (click)="searchService()" type="button" mat-stroked-button color="primary" class="w-100 p-2 border-button-footer mt-3">
+                <span *ngIf="searching"><mat-spinner diameter="20" matSuffix></mat-spinner> Buscando...</span>
+                <mat-icon *ngIf="!searching" aria-hidden="false" aria-label="Example home icon">search</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-2 justify-content-center">
+          <div class="col">
+            <mat-card *ngIf="serviceLoad" matRipple matRippleCentered="true" class=" card cursor-pointer border-account-card-options p-0 mat-elevation-z5 w-100 d-flex justify-content-center align-self-center h-card-account mx-auto">
+              <div class="row justify-content-center">
+                <div class="col-8">
+                  <p class="h2 color-primary">
+                    <strong>{{ basicService.client.name | titlecase }}</strong>
+                  </p>
+                  <p class="h3 color-primary line-space-summary-card" style="line-height: 1.5;">
+                    {{ service.nameService }} -
+                    {{ company.nameCompany }}
+                  </p>
+                  <p class="h3 color-primary">{{ formValues.serviceCode.value }}</p>
+                  <p class="h3 color-primary line-space-summary-card">
+                    <strong>{{ "SERVICIOS.TITTLE_VALUTOPAY_CARD" | translate }}: {{ basicService.totalDbt | currency }}</strong>
+                  </p>
+                  <p class="h3 color-primary">
+                    {{ "SERVICIOS.TITTLE_COMISION" | translate }}: {{ basicService.commission | currency }}
+                  </p>
+                </div>
+                <div class="col-3 d-flex align-self-center flex-row-reverse p-0 mr-2 text-center">
+                  <div (click)="otherService()" class="m-3 text-center">
+                    <button type="button" class="btn btn-light btn-sm"><mat-icon color="primary">close</mat-icon></button>
+                  </div>
+                </div>
+              </div>
+            </mat-card>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4 justify-content-center">
+      <div class="col">
+        <p class="h4 text-warning border-bottom border-3">
+          {{ "SERVICIOS.TITTLE_MONTOS" | translate }}
+        </p>
+      </div>
+    </div>
+
+    <div class="row mt-2 justify-content-center">
+      <div class="col mt-2">
+        <mat-form-field appearance="legacy" class="example-full-width w-100">
+          <mat-label>{{ "TARJETA.TITULO_TITLE_EFEC_MONTOS" | translate }}</mat-label>
+          <img matPrefix class="m-1" src="./assets/images/icons/monto.svg" width="28vh" height="28vh">
+          <input formControlName="effectiveAmount" (ngModelChange)="checkAmount()" maxlength="7" type="tel" (keydown.backspace)="backSpace($event)" (keypress)="numberOnly($event)" matInput currencyMask/>
+          <mat-hint>{{ "TARJETA.TITULO_HINT_EFEC_MONTOS" | translate }}
+          </mat-hint>
+          <mat-error *ngIf="isControlHasError('effectiveAmount', 'min')"> Ingrese un monto superior a 0 (Cero). </mat-error>
+          <mat-error *ngIf="false">Error</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col mt-2">
+        <mat-form-field appearance="legacy" class="example-full-width w-100">
+          <mat-label>{{ "TARJETA.TITULO_TITLE_NUM_CHEQUES" | translate }}</mat-label>
+          <img matPrefix (click)="removeOneCheck()" src="./assets/images/icons/menos.svg" width="35vh" height="35vh">
+          <input formControlName="numberCheck" maxlength="3" (input)="checkNumberCheqs()" (keypress)="numberOnlyC($event)" type="number" min="0" matInput />
+          <img matSuffix (click)="addOneCheck()" src="./assets/images/icons/mas.svg" width="35vh" height="35vh">
+          <mat-error *ngIf="isControlHasError('numberCheck', 'min')"> No se permiten valores negativos </mat-error>
+          <mat-error *ngIf="isControlHasError('numberCheck', 'maxLength')"> Ingrese un numero valido </mat-error>
+          <mat-error *ngIf="isControlHasError('numberCheck', 'max')"> No puede usar mas de 999 cheques </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <!-- Montos Cheques -->
+    <div *ngIf="formValues.numberCheck.value>0" [@enterAnimation]>
+      <div class="row mt-2 justify-content-center">
+        <div class="col mt-2">
+          <mat-form-field appearance="legacy" class="example-full-width w-100">
+            <mat-label>Monto en Cheque(s)</mat-label>
+            <img matPrefix class="m-1" src="./assets/images/icons/monto.svg" width="28vh" height="28vh">
+            <input formControlName="amountCheck" (ngModelChange)="setTotal()" type="tel" (keypress)="numberOnly($event)" (keydown.backspace)="backSpace($event)" matInput currencyMask/>
+            <mat-hint>Ingresa la suma total que vas a depositar en cheque(s)</mat-hint>
+            <mat-error *ngIf="false">Error</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <!---->
+
+
+    <div class="row mt-2 justify-content-center" *ngIf="deviceService.isDesktop()">
+      <div class="col mt-2">
+        <mat-form-field appearance="legacy" class="example-full-width w-100">
+          <mat-label>Correo Electrónico</mat-label>
+          <input formControlName="depositorEmail" type="email" maxlength="150" matInput />
+          <mat-hint>Indica el correo electrónico del depositante</mat-hint>
+          <mat-error *ngIf="isControlHasError('depositorEmail', 'required')"> {{ 'ERROR_MESSAGE.REQUIRED' | translate }} </mat-error>
+          <mat-error *ngIf="isControlHasError('depositorEmail', 'pattern')"> {{ 'ERROR_MESSAGE.EMAILVALID' | translate }} </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div *ngIf="(onNumber(formValues.effectiveAmount.value ) + onNumber(formValues.amountCheck.value)) >= config.legalInformation" [@enterAnimation]>
+      <div class="row mt-4 justify-content-center">
+        <div class="col">
+          <p class="h4 text-warning border-bottom border-3">
+            Información legal
+          </p>
+        </div>
+      </div>
+      <div class="row mt-2 justify-content-center">
+        <div class="col mt-2">
+          <mat-form-field appearance="legacy" class="example-full-width w-100">
+            <mat-label>Fondos Provienen de</mat-label>
+            <input formControlName="fundsSource" maxlength="150" type="text" matInput/>
+            <mat-hint>Indica de donde provienen los fondos</mat-hint>
+            <mat-error *ngIf="isControlHasError('fundsSource', 'required')"> {{ 'ERROR_MESSAGE.REQUIRED' | translate }} </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col mt-2">
+          <mat-form-field appearance="legacy" class="example-full-width w-100">
+            <mat-label>Fondos Serán utilizados en</mat-label>
+            <input formControlName="fundsDestination" maxlength="150" type="text" matInput />
+            <mat-hint>Indica a que se destinarán los fondos</mat-hint>
+            <mat-error *ngIf="isControlHasError('fundsDestination', 'required')"> {{ 'ERROR_MESSAGE.REQUIRED' | translate }} </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col text-center">
+        <p class="h3 mt-4">{{ "SERVICIOS.TITLE_FACTURAR" | translate }}</p>
+        <span>{{ "SERVICIOS.TITLE_FACTURAR_NO" | translate }}</span
+        ><mat-slide-toggle (input)="factua()" formControlName="slideToggleFactura" class="m-2"></mat-slide-toggle
+      ><span>{{ "SERVICIOS.TITLE_FACTURAR_YES" | translate }}</span>
+      </div>
+    </div>
+    <div class="row mt-2 justify-content-center" *ngIf="formGroupBasicService.controls.slideToggleFactura.value">
+      <div class="col-12 col-md-6 mt-1">
+          <mat-form-field appearance="legacy" class="example-full-width w-100">
+            <mat-label
+            >{{ "SERVICIOS.TITLE_FACTURAR_CED" | translate }}
+            </mat-label>
+
+            <input type="tel" (keypress)="numberOnly($event)" matInput (input)="dniCheckCedRuc()" formControlName="receRuc" minlength="10" maxlength="13"/>
+            <mat-hint
+            >{{ "SERVICIOS.TITLE_FACTURAR_ING_CED" | translate }}
+            </mat-hint>
+            <mat-error *ngIf="isControlHasError('receRuc', 'required')"> {{ 'ERROR_MESSAGE.REQUIRED' | translate }} </mat-error>
+            <mat-error *ngIf="formValues.receRuc.errors?.serverError">
+              {{formValues.receRuc.errors?.serverError }}
+            </mat-error>
+          </mat-form-field>
+      </div>
+      <div class="col-12 col-md-6 mt-1">
+          <mat-form-field appearance="legacy" class="example-full-width w-100">
+            <mat-label
+            >{{ "SERVICIOS.TITLE_FACTURAR_NOM" | translate }}
+            </mat-label>
+
+            <input type="text" matInput formControlName="receName" maxlength="150"/>
+            <mat-hint
+            >{{ "SERVICIOS.TITLE_FACTURAR_NOM_ING" | translate }}
+            </mat-hint>
+            <mat-error *ngIf="isControlHasError('receName', 'required')"> {{ 'ERROR_MESSAGE.REQUIRED' | translate }} </mat-error>
+          </mat-form-field>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="container mt-3">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-6">
+      <button type="button" (click)="save()" mat-stroked-button color="primary" class="w-100 p-2 border-button-footer mt-3" [disabled]="unsend">
+        <span class="h2">{{ "SERVICIOS.TITTLE_BUTTON_PAY" | translate }}
+          <span *ngIf="isCorrectInformation">{{ "SERVICIOS.TITTLE_BUTTON_BY" | translate }} {{ total | currency }}</span></span>
+      </button>
+    </div>
+  </div>
+</div>

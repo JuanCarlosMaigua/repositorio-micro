@@ -1,0 +1,9 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+html, body { height: 100%; }
+body { margin: 0; }
+
+.mat-flat-button, .mat-button, .mat-form-field, .mat-stroked-button, .mat-button-toggle, .mat-card{
+  font-family: unset !important;
+}
